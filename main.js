@@ -30,31 +30,21 @@ if (confirm("Bienvenidos a la mejor plataforma de CDs de Argentina. ¿Desea cont
     ];
 
     const cdsArtista = cds.filter(cd => cd.artista.toLowerCase() === cdArtista);
+    const container = document.getElementById('cd-container'); 
 
-    if (cdsArtista.length > 0) {
-        for (const cd of cdsArtista) {
-            alert(`Título: ${cd.titulo}\nArtista: ${cd.artista}\nPrecio: $${cd.precio}\nGénero: ${cd.genero}`);
-        }
-    } else {
-        alert(`No se encontraron CDs para el artista ${cdArtista}.`);
-    }
+if (cdsArtista.length > 0) {
+    const ul = document.createElement('ul'); 
+    cdsArtista.forEach(cd => {
+        const li = document.createElement('li');
+        li.textContent = `Título: ${cd.titulo}, Artista: ${cd.artista}, Precio: $${cd.precio}, Género: ${cd.genero}`;
+        ul.appendChild(li); 
+    });
+    container.appendChild(ul); 
+} else {
+    alert(`No se encontraron CDs para el artista ${cdArtista}.`);
+}
 
-    let cantidadProductos = parseInt(prompt("Ingrese la cantidad de productos que desea calcular:"));
-    let costoTotal = 0;
-
-    for (let contador = 1; contador <= cantidadProductos; contador++) {
-        let producto = prompt(`Ingrese el nombre del Producto ${contador}:`);
-        let precioProducto = parseFloat(prompt(`Introduzca el precio del Producto ${producto}:`));
-
-        if (isNaN(precioProducto)) {
-            alert("El precio ingresado no es válido. Inténtalo nuevamente.");
-        } else {
-            costoTotal += precioProducto;
-        }
-    }
-    alert(`El costo total de tus productos es: $${costoTotal}`);
-
-    if (confirm("¿Antes de irte, te gustaría agregar algún álbum a nuestra colección?")) {
+ if (confirm("¿Antes de irte, te gustaría agregar algún álbum a nuestra colección?")) {
         // Pide al usuario los datos del nuevo álbum
         let NewArtista = prompt("Introduce el nombre del artista");
         let NewAlbum = prompt("Introduce el nombre del álbum");
@@ -96,12 +86,21 @@ const totalPrecio = document.getElementById('total-precio');
 
 // Escucha los eventos de cambio en el contador
 contador.addEventListener('change'), () => {
-const cantidad = parseInt(contador.value);
-const costoTotal = cantidad * 99;
-totalPrecio.textContent = `$${costoTotal}`;
-};
+    const cantidad = parseInt(contador.value);
+    const costoTotal = cantidad * 99;
+    totalPrecio.textContent = `$${costoTotal}`;
+    };
 
+    fetch('URL_DE_LA_API')
+    .then(response => response.json())
+    .then(data => {
+        // Procesa los datos obtenidos de la API
+    })
+    .catch(error => {
+        // Maneja cualquier error que ocurra durante la solicitud
+    });
 
+    
 
 
 
